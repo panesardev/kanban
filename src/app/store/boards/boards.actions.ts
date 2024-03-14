@@ -28,3 +28,8 @@ export class AddTask {
   static readonly type = '[BOARDS] add task';
   constructor(public task: Task, public board: Board) {}
 }
+
+export class UpdateTask {
+  static readonly type = '[BOARDS] update task';
+  constructor(public task: Task, public board: Board) {}
+}

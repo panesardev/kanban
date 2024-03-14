@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output, input } from '@angular/core';
-import { Board } from '../../types/board.interface';
+import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Board } from '../../types/board.interface';
 
 @Component({
   selector: 'app-board-list',
@@ -27,6 +27,5 @@ import { RouterLink } from '@angular/router';
 })
 export class BoardListComponent {
   boards = input.required<Board[]>();
-
-  @Output() onUpdate = new EventEmitter<Board>();
+  onUpdate = output<Board>();
 }

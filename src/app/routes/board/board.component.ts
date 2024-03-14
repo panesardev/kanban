@@ -35,7 +35,10 @@ export default class BoardComponent {
   }
 
   openUpdateTask(task: Task) {
-    // this.modal.open(UpdateTaskComponent, [{ name: 'board', value: this.board() }]);
+    this.modal.open(UpdateTaskComponent, [
+      { name: 'board', value: this.board() },
+      { name: 'task', value: task },
+    ]);
   }
 
   openDeleteBoard() {

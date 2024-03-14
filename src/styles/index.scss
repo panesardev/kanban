@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './components.scss';
+@import './utilities.scss';
+@import './animations.scss';
+
+body {
+  background-color: theme('colors.base');
+  color: theme('colors.slate.700');
+  font-family: 'Inter', sans-serif;
+}
+
+button, input {
+  outline: none;
+}

@@ -1,0 +1,12 @@
+<section>
+
+  <div class="flex justify-center items-center h-96">
+    @if (user(); as user) {
+      <button class="btn primary px-8" routerLink="/dashboard">Continue to Dashboard</button>
+    }
+    @else {
+      <button class="btn px-8" (click)="login()">Continue with Google</button>
+    }
+  </div>
+
+</section>

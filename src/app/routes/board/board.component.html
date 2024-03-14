@@ -1,0 +1,46 @@
+<section>
+  @if (board(); as board) {
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 mb:6 md:mb-10">
+      <div>
+        <h1 class="font-bold text-xl text-primary">{{ board.title }}</h1>
+      </div>
+      <div class="flex gap-6">
+        <!-- <button class="btn secdondary px-6 py-2 rounded-full">Add Task</button>
+        <button class="btn primary px-6 py-2 rounded-full" (click)="openUpdateBoard()">Update</button>
+        <button class="btn red px-6 py-2 rounded-full" (click)="openDeleteBoard()">Delete</button> -->
+        <a class="text-primary hover:underline cursor-pointer" (click)="openAddTask()">New task</a>
+        <a class="text-primary hover:underline cursor-pointer" (click)="openUpdateBoard()">Update</a>
+        <a class="text-red-500 hover:underline cursor-pointer" (click)="openDeleteBoard()">Delete</a>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 md:gap-8">
+      <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
+        <h1 class="text-primary mb-4">Planned</h1>
+        <div>
+          @for (task of board.planned; track $index) {
+            <button class="btn text-{{ task.color }}-500 bg-{{ task.color }}-50" (click)="openUpdateTask(task)">{{ task.text }}</button>
+          }
+        </div>
+      </div>
+      
+      <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
+        <h1 class="text-primary mb-4">Ongoing</h1>
+        <div>
+          @for (task of board.ongoing; track $index) {
+            
+          }
+        </div>
+      </div>
+      
+      <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
+        <h1 class="text-primary mb-4">Completed</h1>
+        <div>
+          @for (task of board.completed; track $index) {
+            
+          }
+        </div>
+      </div>
+    </div>
+  }
+</section>

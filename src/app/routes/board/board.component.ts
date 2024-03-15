@@ -10,11 +10,14 @@ import { AuthService } from '../../services/auth.service';
 import { ModalService } from '../../services/modal.service';
 import { Task } from '../../types/board.interface';
 import { TaskComponent } from '../../layout/components/task.component';
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-board',
   standalone: true,
   imports: [
+    CdkDrag,
+    CdkDropList, 
     TaskComponent,
   ],
   templateUrl: './board.component.html',
@@ -31,6 +34,10 @@ export default class BoardComponent {
       map(boards => boards.find(b => b.id === this.id())),
     ),
   );
+
+  drop(event: CdkDragDrop<Task[]>, tasks: Task[]) {
+    moveItemInArray(tasks, event.previousIndex, event.currentIndex);
+  }
 
   openAddTask() {
     this.modal.open(AddTaskComponent, [{ name: 'board', value: this.board() }]);
@@ -56,16 +63,6 @@ export default class BoardComponent {
   
   openUpdateBoard() {
     this.modal.open(UpdateBoardComponent, [{ name: 'board', value: this.board() }]);
-  }
-
-  styleTask(task: Task) {
-    switch(task.color) {
-      case 'red': return 'bg-red-50 text-red-500';
-      case 'blue': return 'bg-blue-50 text-blue-500';
-      case 'purple': return 'bg-purple-50 text-purple-500';
-      case 'emerald': return 'bg-emerald-50 text-emerald-500';
-      case 'amber': return 'bg-amber-50 text-amber-500';
-    }
   }
 
 }

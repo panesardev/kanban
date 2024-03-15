@@ -1,5 +1,5 @@
-<section>
-  @if (board()) {
+@if (board()) {
+  <section>
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 mb:6 md:mb-10">
       <div>
         <h1 class="font-bold text-xl text-primary">{{ board().title }}</h1>
@@ -14,9 +14,9 @@
     <div class="grid md:grid-cols-3 gap-4 md:gap-12">
       <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
         <h1 class="text-primary mb-4">Planned</h1>
-        <div class="grid gap-3">
+        <div class="grid gap-3" cdkDropList (cdkDropListDropped)="drop($event, board().planned)">
           @for (task of board().planned; track $index) {
-            <app-task [task]="task" (onUpdate)="openUpdateTask($event)"/>
+            <app-task cdkDrag [task]="task" (onUpdate)="openUpdateTask($event)" (onDelete)="openDeleteTask($event)"/>
           }
         </div>
       </div>
@@ -25,7 +25,7 @@
         <h1 class="text-primary mb-4">Ongoing</h1>
         <div>
           @for (task of board().ongoing; track $index) {
-            <app-task [task]="task" (onUpdate)="openUpdateTask($event)"/>
+            <app-task [task]="task" (onUpdate)="openUpdateTask($event)" (onDelete)="openDeleteTask($event)"/>
           }
         </div>
       </div>
@@ -34,10 +34,10 @@
         <h1 class="text-primary mb-4">Completed</h1>
         <div>
           @for (task of board().completed; track $index) {
-            <app-task [task]="task" (onUpdate)="openUpdateTask($event)"/>
+            <app-task [task]="task" (onUpdate)="openUpdateTask($event)" (onDelete)="openDeleteTask($event)"/>
           }
         </div>
       </div>
     </div>
-  }
-</section>
+  </section>
+}

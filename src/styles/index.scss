@@ -15,3 +15,15 @@ body {
 button, input {
   outline: none;
 }
+
+.cdk-drop-list-dragging :not(.cdk-drag-placeholder) {
+  transition: transform 200ms cubic-bezier(.21,.64,.45,1.02);
+}
+
+.cdk-drag-animating {
+  transition: transform 200ms cubic-bezier(.21,.64,.45,1.02);
+}
+
+.cdk-drag-placeholder {
+  opacity: .5;
+}

@@ -12,6 +12,7 @@ import { Task } from '../../types/board.interface';
 export class TaskComponent {
   task = input.required<Task>();
   onUpdate = output<Task>();
+  onDelete = output<Task>();
 
   styleTask(task: Task) {
     switch(task.color) {

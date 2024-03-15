@@ -58,6 +58,21 @@
 }
 
 section {
-  // animation: modal-in 400ms cubic-bezier(.21,.64,.45,1.02);
-  // transform: translateY(0%);
+  animation: route-in 300ms cubic-bezier(.21,.64,.45,1.02);
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+@keyframes route-in {
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
 }

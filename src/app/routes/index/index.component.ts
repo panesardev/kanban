@@ -1,17 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { computedAsync } from 'ngxtension/computed-async';
 import { AuthService } from '../../services/auth.service';
+import { computedAsync } from 'ngxtension/computed-async';
 
 @Component({
-  selector: 'app-auth',
+  selector: 'app-index',
   standalone: true,
   imports: [
     RouterLink,
   ],
-  templateUrl: './auth.component.html',
+  templateUrl: './index.component.html',
 })
-export default class AuthComponent {
+export default class IndexComponent {
   private auth = inject(AuthService);
 
   user = computedAsync(() => this.auth.user$);

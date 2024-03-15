@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { Board } from '../../types/board.interface';
 import { ModalService } from '../../services/modal.service';
 import { UpdateBoardComponent } from '../../layout/modals/boards/update-board.component';
+import { AddBoardComponent } from '../../layout/modals/boards/add-board.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,10 @@ export default class DashboardComponent {
   private modal = inject(ModalService);
 
   user = computedAsync(() => this.auth.user$);
+
+  openAddBoard() {
+    this.modal.open(AddBoardComponent);
+  }
 
   openUpdateBoard(board: Board) {
     this.modal.open(UpdateBoardComponent, [{ name: 'board', value: board }]);

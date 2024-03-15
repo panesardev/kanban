@@ -48,7 +48,7 @@ export class AddBoardComponent extends Modal {
       const board = createBoard(this.title());
       this.store.dispatch([
         new AddBoard(board),
-        new Navigate(['/dashboard/', board.id]),
+        new Navigate(['/dashboard']),
       ]);
       this.modal.close();
     }

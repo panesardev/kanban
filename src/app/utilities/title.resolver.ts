@@ -1,6 +1,5 @@
 import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
-import { BoardsService } from "../services/boards.service";
 import { map } from "rxjs";
 import { AuthService } from "../services/auth.service";
 

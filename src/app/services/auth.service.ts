@@ -17,7 +17,7 @@ export class AuthService {
 
   readonly isAuthenticated$ = this.user$.pipe(
     map(user => !!user),
-    tap(exists => !exists && this.router.navigateByUrl('/auth')),
+    tap(exists => !exists && this.router.navigateByUrl('/')),
   );
 
   async login(): Promise<void> {

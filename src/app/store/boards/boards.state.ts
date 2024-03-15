@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { Action, NgxsOnChanges, NgxsSimpleChange, State, StateContext } from "@ngxs/store";
+import { Action, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 import { BoardsService } from "../../services/boards.service";
 import { Board } from "../../types/board.interface";
@@ -14,15 +14,11 @@ const initial: BoardsStateType = [];
   defaults: initial,
 })
 @Injectable()
-export class BoardsState implements NgxsOnChanges {
+export class BoardsState {
   private boardsService = inject(BoardsService);
 
   ngxsOnInit(ctx: StateContext<BoardsStateType>) {
     ctx.dispatch(new GetBoards());
-  }
-
-  ngxsOnChanges(change: NgxsSimpleChange<BoardsStateType>): void {
-    console.log(change.currentValue);
   }
 
   @Action(GetBoards)

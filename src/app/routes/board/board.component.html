@@ -14,27 +14,60 @@
     <div class="grid md:grid-cols-3 gap-4 md:gap-12">
       <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
         <h1 class="text-primary mb-4">Planned</h1>
-        <div class="grid gap-3" cdkDropList (cdkDropListDropped)="drop($event, board().planned)">
+        <div class="grid gap-3 min-h-20" 
+          id="planned"
+          cdkDropList 
+          #planned="cdkDropList" 
+          [cdkDropListConnectedTo]="[ongoing, completed]"
+          [cdkDropListData]="board().planned"
+          (cdkDropListDropped)="drop($event)"
+        >
           @for (task of board().planned; track $index) {
-            <app-task cdkDrag [task]="task" (onUpdate)="openUpdateTask($event)" (onDelete)="openDeleteTask($event)"/>
+            <app-task cdkDrag 
+              [task]="task" 
+              (onUpdate)="openUpdateTask($event)" 
+              (onDelete)="openDeleteTask($event)"
+            />
           }
         </div>
       </div>
       
       <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
         <h1 class="text-primary mb-4">Ongoing</h1>
-        <div>
+        <div class="grid gap-3 min-h-20" 
+          id="ongoing"
+          cdkDropList 
+          #ongoing="cdkDropList"
+          [cdkDropListConnectedTo]="[completed, planned]"
+          [cdkDropListData]="board().ongoing"
+          (cdkDropListDropped)="drop($event)"
+        >
           @for (task of board().ongoing; track $index) {
-            <app-task [task]="task" (onUpdate)="openUpdateTask($event)" (onDelete)="openDeleteTask($event)"/>
+            <app-task cdkDrag 
+              [task]="task" 
+              (onUpdate)="openUpdateTask($event)" 
+              (onDelete)="openDeleteTask($event)"
+            />
           }
         </div>
       </div>
       
       <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
         <h1 class="text-primary mb-4">Completed</h1>
-        <div>
+        <div class="grid gap-3 min-h-20" 
+          id="completed"
+          cdkDropList 
+          #completed="cdkDropList"
+          [cdkDropListConnectedTo]="[planned, ongoing]"
+          [cdkDropListData]="board().completed"
+          (cdkDropListDropped)="drop($event)"
+        >
           @for (task of board().completed; track $index) {
-            <app-task [task]="task" (onUpdate)="openUpdateTask($event)" (onDelete)="openDeleteTask($event)"/>
+            <app-task cdkDrag 
+              [task]="task" 
+              (onUpdate)="openUpdateTask($event)" 
+              (onDelete)="openDeleteTask($event)"
+            />
           }
         </div>
       </div>

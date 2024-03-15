@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { computedAsync } from 'ngxtension/computed-async';
 import { BoardListComponent } from '../../layout/components/board-list.component';
-import { AuthService } from '../../services/auth.service';
-import { Board } from '../../types/board.interface';
-import { ModalService } from '../../services/modal.service';
-import { UpdateBoardComponent } from '../../layout/modals/boards/update-board.component';
 import { AddBoardComponent } from '../../layout/modals/boards/add-board.component';
+import { DeleteBoardComponent } from '../../layout/modals/boards/delete-board.component';
+import { AuthService } from '../../services/auth.service';
+import { ModalService } from '../../services/modal.service';
+import { Board } from '../../types/board.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,8 +25,8 @@ export default class DashboardComponent {
     this.modal.open(AddBoardComponent);
   }
 
-  openUpdateBoard(board: Board) {
-    this.modal.open(UpdateBoardComponent, [{ name: 'board', value: board }]);
+  openDeleteBoard(board: Board) {
+    this.modal.open(DeleteBoardComponent, [{ name: 'board', value: board }]);
   } 
 
 }

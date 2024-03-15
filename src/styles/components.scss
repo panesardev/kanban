@@ -1,6 +1,6 @@
 @layer components {
   .btn {
-    @apply bg-neutral flex justify-center items-center py-2.5 px-6 rounded;
+    @apply flex justify-center items-center py-2.5 px-6 rounded;
   }
   .btn.primary {
     @apply bg-primary text-secondary;

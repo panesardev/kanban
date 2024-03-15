@@ -3,7 +3,7 @@ import { Action, NgxsOnChanges, NgxsSimpleChange, State, StateContext } from "@n
 import { tap } from "rxjs";
 import { BoardsService } from "../../services/boards.service";
 import { Board } from "../../types/board.interface";
-import { AddBoard, DeleteBoard, GetBoards, SetBoards, UpdateBoard } from "./boards.actions";
+import { AddBoard, AddTask, DeleteBoard, DeleteTask, GetBoards, SetBoards, UpdateBoard, UpdateTask } from "./boards.actions";
 
 type BoardsStateType = Board[];
 
@@ -43,7 +43,6 @@ export class BoardsState implements NgxsOnChanges {
     const boards = ctx.getState();
     const nextBoards = [...boards, action.board];
 
-    ctx.setState(nextBoards);
     ctx.dispatch(new SetBoards(nextBoards));
   }
   
@@ -53,7 +52,6 @@ export class BoardsState implements NgxsOnChanges {
     const index = boards.findIndex(b => b.id === action.board.id);
     boards[index] = action.board;
 
-    ctx.setState(boards);
     ctx.dispatch(new SetBoards(boards));
   }
 
@@ -62,8 +60,52 @@ export class BoardsState implements NgxsOnChanges {
     const boards = ctx.getState();
     const nextBoards = boards.filter(b => b.id !== action.board.id);
 
-    ctx.setState(nextBoards);
     ctx.dispatch(new SetBoards(nextBoards));
+  }
+
+  /// tasks ///
+
+  @Action(AddTask)
+  addTask(ctx: StateContext<BoardsStateType>, action: AddTask) {
+    const boards = ctx.getState();
+    boards.find(b => b.id === action.board.id).planned.push(action.task);
+
+    ctx.dispatch(new SetBoards(boards));
+  }
+
+  @Action(UpdateTask)
+  updateTask(ctx: StateContext<BoardsStateType>, action: UpdateTask) {
+    const boards = ctx.getState();
+    const boardIndex = boards.findIndex(b => b.id === action.board.id);
+    // update task if task is found in planned array
+    if (boards[boardIndex].planned.find(t => t.id === action.task.id)) {
+      const taskIndex = boards[boardIndex].planned.findIndex(t => t.id === action.task.id);
+      boards[boardIndex].planned[taskIndex] = action.task;
+    }
+    // update task if task is found in ongoing array
+    if (boards[boardIndex].ongoing.find(t => t.id === action.task.id)) {
+      const taskIndex = boards[boardIndex].ongoing.findIndex(t => t.id === action.task.id);
+      boards[boardIndex].ongoing[taskIndex] = action.task;
+    }
+    // update task if task is found in completed array
+    if (boards[boardIndex].completed.find(t => t.id === action.task.id)) {
+      const taskIndex = boards[boardIndex].completed.findIndex(t => t.id === action.task.id);
+      boards[boardIndex].completed[taskIndex] = action.task;
+    }
+
+    ctx.dispatch(new SetBoards(boards));
+  }
+  
+  @Action(DeleteTask)
+  deleteTask(ctx: StateContext<BoardsStateType>, action: DeleteTask) {
+    const boards = ctx.getState();
+    const index = boards.findIndex(b => b.id === action.board.id);
+    // remove task from each array
+    boards[index].planned = boards[index].planned.filter(t => t.id !== action.task.id);
+    boards[index].ongoing = boards[index].ongoing.filter(t => t.id !== action.task.id);
+    boards[index].completed = boards[index].completed.filter(t => t.id !== action.task.id);
+
+    ctx.dispatch(new SetBoards(boards));
   }
 
 }

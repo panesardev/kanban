@@ -17,14 +17,14 @@ import { Navigate } from '@ngxs/router-plugin';
     ReactiveFormsModule,
   ],
   template: `
-    <app-base-modal heading="Add Board" classes="max-w-md">
+    <app-base-modal heading="Add board" classes="max-w-md">
       <div class="grid gap-2 mb-6">
         <label>enter board title</label>
         <input type="text" [formControl]="titleControl" placeholder="type here" 
           class="border-2 rounded px-4 py-3 {{ hasError() ? ' border-red-400' : 'border-slate-200' }}">
       </div>
       <div class="flex justify-center">
-        <button class="btn primary px-6" (click)="addBoard()">Add Board</button>
+        <button class="btn primary px-6" (click)="addBoard()">Add board</button>
       </div>
     </app-base-modal>
   `,
@@ -48,7 +48,7 @@ export class AddBoardComponent extends Modal {
       const board = createBoard(this.title());
       this.store.dispatch([
         new AddBoard(board),
-        new Navigate(['/dashboard']),
+        new Navigate(['/dashboard/', board.id]),
       ]);
       this.modal.close();
     }

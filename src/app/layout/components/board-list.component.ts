@@ -26,6 +26,6 @@ import { Board } from '../../types/board.interface';
   `,
 })
 export class BoardListComponent {
-  boards = input.required<Board[]>();
+  boards = input<Board[]>();
   onUpdate = output<Board>();
 }

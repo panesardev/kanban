@@ -33,3 +33,8 @@ export class UpdateTask {
   static readonly type = '[BOARDS] update task';
   constructor(public task: Task, public board: Board) {}
 }
+
+export class DeleteTask {
+  static readonly type = '[BOARDS] delete task';
+  constructor(public task: Task, public board: Board) {}
+}

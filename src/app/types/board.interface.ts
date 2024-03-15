@@ -15,13 +15,7 @@ export interface Task {
   text: string;
 }
 
-export enum TaskColor {
-  RED,
-  BLUE,
-  PURPLE,
-  GREEN,
-  CYAN,
-}
+export type TaskColor = 'red' | 'blue' | 'purple' | 'emerald' | 'amber';
 
 export function createBoard(title: string): Board {
   return {
@@ -34,10 +28,10 @@ export function createBoard(title: string): Board {
   };
 }
 
-export function createTask(text: string): Task {
+export function createTask(task: Partial<Task>): Task {
   return {
     id: uuid(),
-    text,
-    color: TaskColor.BLUE,
+    text: task.text,
+    color: task.color,
   }
 }

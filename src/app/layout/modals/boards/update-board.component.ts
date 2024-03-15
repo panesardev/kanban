@@ -7,7 +7,6 @@ import { UpdateBoard } from '../../../store/boards/boards.actions';
 import { Board } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
 import { BaseModalComponent } from '../base-modal.component';
-import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-update-board',
@@ -17,14 +16,14 @@ import { Navigate } from '@ngxs/router-plugin';
     ReactiveFormsModule,
   ],
   template: `
-    <app-base-modal heading="Update Board" classes="max-w-md">
+    <app-base-modal heading="Update board" classes="max-w-md">
       <div class="grid gap-2 mb-6">
         <label>change board title</label>
         <input type="text" [formControl]="titleControl" placeholder="type here" 
           class="border-2 rounded px-4 py-3 {{ hasError() ? ' border-red-400' : 'border-slate-200' }}">
       </div>
       <div class="flex justify-center">
-        <button class="btn primary px-6" (click)="updateBoard()">Update Board</button>
+        <button class="btn primary px-6" (click)="updateBoard()">Update board</button>
       </div>
     </app-base-modal>
   `,
@@ -50,10 +49,7 @@ export class UpdateBoardComponent extends Modal {
   updateBoard(): void {
     if (this.titleControl.value) {
       const board: Board = { ...this.board(), title: this.title() };
-      this.store.dispatch([
-        new UpdateBoard(board),
-        new Navigate(['/dashboard']),
-      ]);
+      this.store.dispatch(new UpdateBoard(board));
       this.modal.close();
     }
   }

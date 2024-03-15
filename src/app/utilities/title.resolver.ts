@@ -13,7 +13,7 @@ export const titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) 
     title = path[0].toUpperCase() + path.slice(1, path.length);
   }
 
-  return `${title} - KanBan`;
+  return `${title} - Kanban`;
 }
 
 export const boardTitleResolver = (route: ActivatedRouteSnapshot) => {
@@ -23,6 +23,6 @@ export const boardTitleResolver = (route: ActivatedRouteSnapshot) => {
   return auth.user$.pipe(
     map(user => user.boards),
     map(boards => boards.find(b => b.id === boardId)),
-    map(board => `${board.title} - KanBan`),
+    map(board => `${board.title} - Kanban`),
   );
 }

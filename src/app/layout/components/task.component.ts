@@ -6,7 +6,9 @@ import { Task } from '../../types/board.interface';
   standalone: true,
   imports: [],
   template: `
-    <div class="{{ styleTask(task()) }} px-4 py-3 rounded cursor-move" (click)="onUpdate.emit(task())">{{ task().text }}</div>
+    <div class="{{ styleTask(task()) }} px-4 py-3 rounded cursor-pointer" (click)="onUpdate.emit(task())">
+      {{ task().text }}
+    </div>
   `,  
 })
 export class TaskComponent {

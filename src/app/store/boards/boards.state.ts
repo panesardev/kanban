@@ -36,10 +36,10 @@ export class BoardsState {
   @Action(AddBoard)
   addBoard(ctx: StateContext<BoardsStateType>, action: AddBoard) {
     const boards = ctx.getState();
-    const nextBoards = [...boards, action.board];
+    boards.push(action.board);
 
     ctx.setState(boards);
-    ctx.dispatch(new SetBoards(nextBoards));
+    ctx.dispatch(new SetBoards(boards));
   }
   
   @Action(UpdateBoard)
@@ -57,7 +57,7 @@ export class BoardsState {
     const boards = ctx.getState();
     const nextBoards = boards.filter(b => b.id !== action.board.id);
 
-    ctx.setState(boards);
+    ctx.setState(nextBoards);
     ctx.dispatch(new SetBoards(nextBoards));
   }
 

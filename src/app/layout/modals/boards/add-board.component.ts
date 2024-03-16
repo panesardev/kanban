@@ -7,7 +7,6 @@ import { AddBoard } from '../../../store/boards/boards.actions';
 import { createBoard } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
 import { BaseModalComponent } from '../base-modal.component';
-import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-add-board',
@@ -46,10 +45,7 @@ export class AddBoardComponent extends Modal {
   addBoard(): void {
     if (this.titleControl.value) {
       const board = createBoard(this.title());
-      this.store.dispatch([
-        new AddBoard(board),
-        new Navigate(['/dashboard']),
-      ]);
+      this.store.dispatch(new AddBoard(board));
       this.modal.close();
     }
     else {

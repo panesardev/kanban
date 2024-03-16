@@ -10,6 +10,9 @@ import { Board } from '../../types/board.interface';
   ],
   template: `
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div class="border-2 border-dashed border-slate-300 rounded flex justify-center items-center p-4">
+        <button class="btn primary px-6" (click)="onAdd.emit()">Add board</button>
+      </div>
       @for (board of boards(); track $index) {
         <div class="bg-neutral flex flex-col justify-between custom-shadow rounded-md gap-4 p-4 md:p-6">
           <div class="gap-6">
@@ -26,6 +29,7 @@ import { Board } from '../../types/board.interface';
   `,
 })
 export class BoardListComponent {
-  boards = input<Board[]>();
+  boards = input.required<Board[]>();
+  onAdd = output<void>();
   onDelete = output<Board>();
 }

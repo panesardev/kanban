@@ -30,7 +30,6 @@ export class BoardsState {
   
   @Action(SetBoards)
   async setBoards(ctx: StateContext<BoardsStateType>, action: SetBoards) {
-    ctx.setState(action.boards);
     await this.boardsService.setBoards(action.boards);
   }
 
@@ -39,6 +38,7 @@ export class BoardsState {
     const boards = ctx.getState();
     const nextBoards = [...boards, action.board];
 
+    ctx.setState(boards);
     ctx.dispatch(new SetBoards(nextBoards));
   }
   
@@ -48,6 +48,7 @@ export class BoardsState {
     const index = boards.findIndex(b => b.id === action.board.id);
     boards[index] = action.board;
 
+    ctx.setState(boards);
     ctx.dispatch(new SetBoards(boards));
   }
 
@@ -56,16 +57,16 @@ export class BoardsState {
     const boards = ctx.getState();
     const nextBoards = boards.filter(b => b.id !== action.board.id);
 
+    ctx.setState(boards);
     ctx.dispatch(new SetBoards(nextBoards));
   }
-
-  /// tasks ///
 
   @Action(AddTask)
   addTask(ctx: StateContext<BoardsStateType>, action: AddTask) {
     const boards = ctx.getState();
     boards.find(b => b.id === action.board.id).planned.push(action.task);
 
+    ctx.setState(boards);
     ctx.dispatch(new SetBoards(boards));
   }
 
@@ -89,6 +90,7 @@ export class BoardsState {
       boards[boardIndex].completed[taskIndex] = action.task;
     }
 
+    ctx.setState(boards);
     ctx.dispatch(new SetBoards(boards));
   }
   
@@ -101,6 +103,7 @@ export class BoardsState {
     boards[index].ongoing = boards[index].ongoing.filter(t => t.id !== action.task.id);
     boards[index].completed = boards[index].completed.filter(t => t.id !== action.task.id);
 
+    ctx.setState(boards);
     ctx.dispatch(new SetBoards(boards));
   }
 

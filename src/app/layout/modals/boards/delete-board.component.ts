@@ -26,10 +26,7 @@ export class DeleteBoardComponent extends Modal {
   board = input.required<Board>();
   
   deleteBoard() {
-    this.store.dispatch([
-      new DeleteBoard(this.board()),
-      new Navigate(['/dashboard']),
-    ]);
+    this.store.dispatch(new DeleteBoard(this.board()));
     this.modal.close();
   }
 

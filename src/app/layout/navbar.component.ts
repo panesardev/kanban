@@ -21,7 +21,6 @@ import { computedAsync } from 'ngxtension/computed-async';
         <div class="flex gap-4 md:gap-8">
           <a class="text-primary hover:underline" routerLink="/dashboard">Dashboard</a>
           @if (user()) {
-            <a class="text-primary hover:underline cursor-pointer" (click)="openAddBoard()">Add board</a>
             <a class="text-primary hover:underline cursor-pointer" (click)="openLogout()">Logout</a>
           }
         </div>

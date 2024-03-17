@@ -1,5 +1,4 @@
 import { Component, inject, input } from '@angular/core';
-import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { DeleteBoard } from '../../../store/boards/boards.actions';
 import { Board } from '../../../types/board.interface';
@@ -16,7 +15,9 @@ import { BaseModalComponent } from '../base-modal.component';
     <app-base-modal heading="Delete board" classes="max-w-md">
       <p class="mb-6">Are you sure to delete <span class="font-bold">{{ board().title }}</span>?</p>
 
-      <button class="btn bg-red-500 text-red-50 w-full" (click)="deleteBoard()">Delete board</button>
+      <div class="grid">
+        <button class="btn bg-red-500 text-red-50" (click)="deleteBoard()">Delete board</button>
+      </div>
     </app-base-modal>
   `,
 })

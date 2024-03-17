@@ -15,7 +15,9 @@ import { DeleteTask } from '../../../store/boards/boards.actions';
     <app-base-modal heading="Delete task" classes="max-w-md">
       <p class="mb-6">Are you sure to delete <span class="font-bold">{{ board().title }}</span>?</p>
 
-      <button class="btn bg-red-500 text-red-50 w-full" (click)="deleteTask()">Delete task</button>
+      <div class="grid">
+        <button class="btn bg-red-500 text-red-50" (click)="deleteTask()">Delete task</button>
+      </div>
     </app-base-modal>
   `,
 })

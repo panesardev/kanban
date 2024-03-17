@@ -32,7 +32,7 @@ import { AddTask } from '../../../store/boards/boards.actions';
           <div class="{{ isSelectedTaskColor('amber') ? 'border-[6px] border-amber-500 bg-neutral' : 'bg-amber-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('amber')"></div>
         </div>
       </div>
-      <div class="flex justify-center">
+      <div class="grid">
         <button class="btn primary px-6" (click)="addTask()">Add task</button>
       </div>
     </app-base-modal>

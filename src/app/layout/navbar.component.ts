@@ -13,8 +13,8 @@ import { computedAsync } from 'ngxtension/computed-async';
     RouterLink,
   ],
   template: `
-    <header class="border-b-2 border-slate-200">
-      <nav class="max-w-6xl flex justify-between items-center gap-8 mx-auto p-4 md:px-8 md:py-6">
+    <header class="bg-neutral custom-shadow">
+      <nav class="max-w-6xl flex justify-between items-center gap-8 mx-auto px-4 py-6 md:px-8 md:py-6">
         <div>
           <a class="text-primary font-bold" routerLink="/">NGXKanban</a>
         </div>
@@ -24,7 +24,7 @@ import { computedAsync } from 'ngxtension/computed-async';
             <a class="text-primary hover:underline cursor-pointer" (click)="openLogout()">Logout</a>
           }
         </div>
-      </nav>  
+      </nav>
     </header>
   `,
 })

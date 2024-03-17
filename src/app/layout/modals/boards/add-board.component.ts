@@ -22,7 +22,7 @@ import { BaseModalComponent } from '../base-modal.component';
         <input type="text" [formControl]="titleControl" placeholder="type here" 
           class="border-2 rounded px-4 py-3 {{ hasError() ? ' border-red-400' : 'border-slate-200' }}">
       </div>
-      <div class="flex justify-center">
+      <div class="grid">
         <button class="btn primary px-6" (click)="addBoard()">Add board</button>
       </div>
     </app-base-modal>

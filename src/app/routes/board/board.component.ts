@@ -38,7 +38,11 @@ export default class BoardComponent {
     ),
   );
 
-  drop(e: CdkDragDrop<Task[]>, ) {
+  drop(e: CdkDragDrop<Task[]>) {
+    if (!e.container.data.length || !e.previousContainer.data.length) {
+      return;
+    }
+
     if (e.previousContainer === e.container) {
       moveItemInArray(e.container.data, e.previousIndex, e.currentIndex);
     }

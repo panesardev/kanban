@@ -6,8 +6,11 @@ import { Task } from '../../types/board.interface';
   standalone: true,
   imports: [],
   template: `
-    <div class="{{ styleTask(task()) }} px-4 py-3 rounded cursor-pointer" (click)="onUpdate.emit(task())">
-      {{ task().text }}
+    <div class="{{ styleTask(task()) }} flex justify-between gap-4 px-4 py-3 rounded cursor-pointer">
+      <div (click)="onUpdate.emit(task())">{{ task().text }}</div>
+      <button (click)="onDelete.emit(task())">
+        <i class="close-icon"></i>
+      </button>
     </div>
   `,  
 })

@@ -13,7 +13,7 @@ import { DeleteTask } from '../../../store/boards/boards.actions';
   ],
   template: `
     <app-base-modal heading="Delete task" classes="max-w-md">
-      <p class="mb-6">Are you sure to delete <span class="font-bold">{{ board().title }}</span>?</p>
+      <p class="mb-6">Are you sure to delete <span class="font-bold">{{ task().text }}</span>?</p>
 
       <div class="grid">
         <button class="btn bg-red-500 text-red-50" (click)="deleteTask()">Delete task</button>

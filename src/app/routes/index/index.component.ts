@@ -11,7 +11,7 @@ import { computedAsync } from 'ngxtension/computed-async';
   ],
   templateUrl: './index.component.html',
 })
-export default class IndexComponent {
+export class IndexComponent {
   private auth = inject(AuthService);
 
   user = computedAsync(() => this.auth.user$);

@@ -1,24 +1,26 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './utilities/auth.guard';
-import { titleResolver, boardTitleResolver } from './utilities/title.resolver';
-import IndexComponent from './routes/index/index.component';
+import { TitleResolver, BoardTitleResolver } from './utilities/title.resolver';
+import { IndexComponent } from './routes/index/index.component';
+import { DashboardComponent } from './routes/dashboard/dashboard.component';
+import { BoardComponent } from './routes/board/board.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
-    title: titleResolver,
+    title: TitleResolver,
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./routes/dashboard/dashboard.component'),
-    title: titleResolver,
+    component: DashboardComponent,
+    title: TitleResolver,
     canActivate: [authGuard],
   },
   {
-    path: 'dashboard/:id',
-    loadComponent: () => import('./routes/board/board.component'),
-    title: boardTitleResolver,
+    path: 'board/:id',
+    component: BoardComponent,
+    title: BoardTitleResolver,
     canActivate: [authGuard],
   },
   {
@@ -27,3 +29,4 @@ export const routes: Routes = [
     pathMatch: 'full',
   }
 ];
+

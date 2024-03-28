@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
 import { map } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
-export const titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
+export const TitleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
   const path = route.routeConfig?.path;
 
   let title: string = `Home`;
@@ -15,7 +15,7 @@ export const titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) 
   return `${title} - Kanban`;
 }
 
-export const boardTitleResolver = (route: ActivatedRouteSnapshot) => {
+export const BoardTitleResolver = (route: ActivatedRouteSnapshot) => {
   const auth = inject(AuthService);
   const boardId = route.paramMap.get('id');
   

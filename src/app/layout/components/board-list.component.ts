@@ -21,7 +21,7 @@ import { Board } from '../../types/board.interface';
           </div>
           <div class="flex justify-end items-center gap-6">
             <a class="text-red-500 hover:underline cursor-pointer" (click)="onDelete.emit(board)">Delete</a>
-            <button class="btn primary px-6 py-2" routerLink="/dashboard/{{ board.id }}">View</button>
+            <button class="btn primary px-6 py-2" routerLink="/board/{{ board.id }}">View</button>
           </div>
         </div>
       }

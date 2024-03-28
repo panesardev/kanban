@@ -13,7 +13,7 @@ import { ModalComponent } from './layout/modal.component';
   ],
   template: `
     <app-navbar />
-    <main class="max-w-6xl mx-auto px-4 py-6 md:p-8">
+    <main class="max-w-6xl mt-20 mx-auto px-4 py-6 md:p-8">
       <router-outlet />
     </main>
     <app-modal/>

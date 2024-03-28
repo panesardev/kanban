@@ -1,6 +1,6 @@
 @if (board(); as board) {
   <section>
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 mb-8 md:mb-10">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 mb-8 md:mb-10 px-2 md:px-0">
       <div>
         <h1 class="font-bold text-xl text-primary">{{ board.title }}</h1>
       </div>
@@ -12,12 +12,12 @@
     </div>
 
     @if (!board.planned.length && !board.ongoing.length && !board.completed.length) {
-      <p class="my-16 text-center">Get started by adding a new task...</p>
+      <p class="text-center my-16 px-2">Get started by adding a new task...</p>
     }
 
-    <div class="grid md:grid-cols-3 gap-4 md:gap-12">
-      <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
-        <h1 class="text-primary text-center mb-4">Planned</h1>
+    <div class="grid md:grid-cols-3 gap-6 md:gap-12">
+      <div class="border-2 border-slate-200 rounded p-4 md:p-6">
+        <h1 class="text-primary text-center text-xl mb-4 md:mb-6">Planned</h1>
         <div class="grid gap-3 min-h-20" 
           id="planned"
           cdkDropList 
@@ -36,8 +36,8 @@
         </div>
       </div>
       
-      <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
-        <h1 class="text-primary text-center mb-4">Ongoing</h1>
+      <div class="border-2 border-slate-200 rounded p-4 md:p-6">
+        <h1 class="text-primary text-center text-xl mb-4 md:mb-6">Ongoing</h1>
         <div class="grid gap-3 min-h-20" 
           id="ongoing"
           cdkDropList 
@@ -56,8 +56,8 @@
         </div>
       </div>
       
-      <div class="bg-neutral custom-shadow rounded p-4 md:p-6">
-        <h1 class="text-primary text-center mb-4">Completed</h1>
+      <div class="border-2 border-slate-200 rounded p-4 md:p-6">
+        <h1 class="text-primary text-center text-xl mb-4 md:mb-6">Completed</h1>
         <div class="grid gap-3 min-h-20" 
           id="completed"
           cdkDropList 

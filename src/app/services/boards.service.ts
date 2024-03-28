@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { catchError, first, firstValueFrom, map, of, switchMap } from "rxjs";
+import { first, firstValueFrom, map } from "rxjs";
 import { Board } from "../types/board.interface";
 import { AuthService } from "./auth.service";
 
@@ -11,7 +11,6 @@ export class BoardsService {
     return this.auth.user$.pipe(
       first(),
       map(user => user.boards),
-      catchError(() => of([])),
     );
   }
 

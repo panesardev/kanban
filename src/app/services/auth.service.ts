@@ -48,7 +48,7 @@ export class AuthService {
         email: user.email,
         photoURL: user.photoURL,
         boards: data.boards,
-       }))
+      }))
     );
   }
 

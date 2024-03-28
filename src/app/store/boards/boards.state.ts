@@ -36,10 +36,10 @@ export class BoardsState {
   @Action(AddBoard)
   addBoard(ctx: StateContext<BoardsStateType>, action: AddBoard) {
     const boards = ctx.getState();
-    boards.push(action.board);
+    const nextBoards = [...boards, action.board];
 
-    ctx.setState(boards);
-    ctx.dispatch(new SetBoards(boards));
+    ctx.setState(nextBoards);
+    ctx.dispatch(new SetBoards(nextBoards));
   }
   
   @Action(UpdateBoard)

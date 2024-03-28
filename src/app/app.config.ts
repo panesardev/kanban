@@ -5,7 +5,6 @@ import { PreloadAllModules, provideRouter, withComponentInputBinding, withInMemo
 import { routes } from './app.routes';
 import { provideFirebase } from './providers/firebase.provider';
 import { provideNgxs } from './providers/ngxs.provider';
-import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,9 +20,5 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideFirebase(),
     provideNgxs(),
-    provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
   ],
 };

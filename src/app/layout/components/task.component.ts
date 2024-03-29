@@ -23,7 +23,7 @@ export class TaskComponent {
     switch(task.color) {
       case 'red': return 'bg-red-50 text-red-600 border-2 border-red-500';
       case 'blue': return 'bg-blue-50 text-blue-600 border-2 border-blue-500';
-      case 'purple': return 'bg-purple-50 text-purple-600 border-2 border-purple-500';
+      case 'purple': return 'bg-violet-50 text-violet-600 border-2 border-violet-500';
       case 'emerald': return 'bg-emerald-50 text-emerald-600 border-2 border-emerald-500';
       case 'amber': return 'bg-amber-50 text-amber-600 border-2 border-amber-500';
     }

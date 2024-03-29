@@ -5,7 +5,7 @@
 
 @keyframes modal-in {
   from {
-    transform: translateY(15px);
+    transform: translateY(30px);
   }
   to {
     transform: translateY(0%);
@@ -14,7 +14,7 @@
 
 .modal-out {
   animation: modal-out 200ms cubic-bezier(.21,.64,.45,1.02);
-  transform: translateY(15px);
+  transform: translateY(30px);
   opacity: 0;
 }
 
@@ -24,7 +24,7 @@
     opacity: 1;
   }
   to {
-    transform: translateY(15px);
+    transform: translateY(30px);
     opacity: 0;
   }
 }
@@ -65,7 +65,7 @@ section {
 
 @keyframes route-in {
   from {
-    transform: translateY(15px);
+    transform: translateY(30px);
     opacity: 0;
   }
   30% {

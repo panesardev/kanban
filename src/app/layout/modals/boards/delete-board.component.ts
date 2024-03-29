@@ -12,7 +12,7 @@ import { BaseModalComponent } from '../base-modal.component';
   ],
   template: `
     <app-base-modal heading="Delete board" classes="max-w-md">
-      <p class="mb-6">Are you sure to delete <span class="font-bold">{{ board().title }}</span>?</p>
+      <p class="mb-6">Are you sure to delete <span class="font-medium">{{ board().title }}</span>?</p>
 
       <div class="grid">
         <button class="btn bg-red-500 text-red-50" (click)="deleteBoard()">Delete board</button>

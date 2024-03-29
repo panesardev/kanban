@@ -2,7 +2,7 @@
   <section>
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 mb-8 md:mb-10 px-2 md:px-0">
       <div>
-        <h1 class="font-bold text-xl text-primary">{{ board.title }}</h1>
+        <h1 class="font-medium text-xl">{{ board.title }}</h1>
       </div>
       <div class="flex gap-6">
         <a class="text-primary hover:underline cursor-pointer" (click)="openAddTask()">Add task</a>
@@ -16,8 +16,8 @@
     }
 
     <div class="grid md:grid-cols-3 gap-6 md:gap-12">
-      <div class="border-2 border-slate-200 rounded p-4 md:p-6">
-        <h1 class="text-primary text-center text-xl mb-4 md:mb-6">Planned</h1>
+      <div class="border-[1px] border-slate-300 rounded p-4 md:p-6">
+        <h1 class="mb-4 md:mb-6">Planned</h1>
         <div class="grid gap-3 min-h-20" 
           id="planned"
           cdkDropList 
@@ -36,8 +36,8 @@
         </div>
       </div>
       
-      <div class="border-2 border-slate-200 rounded p-4 md:p-6">
-        <h1 class="text-primary text-center text-xl mb-4 md:mb-6">Ongoing</h1>
+      <div class="border-[1px] border-slate-300 rounded p-4 md:p-6">
+        <h1 class="mb-4 md:mb-6">Ongoing</h1>
         <div class="grid gap-3 min-h-20" 
           id="ongoing"
           cdkDropList 
@@ -56,8 +56,8 @@
         </div>
       </div>
       
-      <div class="border-2 border-slate-200 rounded p-4 md:p-6">
-        <h1 class="text-primary text-center text-xl mb-4 md:mb-6">Completed</h1>
+      <div class="border-[1px] border-slate-300 rounded p-4 md:p-6">
+        <h1 class="mb-4 md:mb-6">Completed</h1>
         <div class="grid gap-3 min-h-20" 
           id="completed"
           cdkDropList 

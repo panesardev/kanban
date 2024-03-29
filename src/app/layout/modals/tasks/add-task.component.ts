@@ -1,12 +1,11 @@
 import { Component, inject, input, signal } from '@angular/core';
-import { BaseModalComponent } from '../base-modal.component';
-import { Modal } from '../../../types/modal.class';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Store } from '@ngxs/store';
 import { computedAsync } from 'ngxtension/computed-async';
 import { distinctUntilChanged, tap } from 'rxjs';
+import { TasksService } from '../../../services/tasks.service';
 import { Board, TaskColor, createTask } from '../../../types/board.interface';
-import { AddTask } from '../../../store/boards/boards.actions';
+import { Modal } from '../../../types/modal.class';
+import { BaseModalComponent } from '../base-modal.component';
 
 @Component({
   selector: 'app-add-task',
@@ -39,7 +38,7 @@ import { AddTask } from '../../../store/boards/boards.actions';
   `,
 })
 export class AddTaskComponent extends Modal {
-  private store = inject(Store);
+  private tasksService = inject(TasksService);
 
   board = input.required<Board>();
 
@@ -55,10 +54,10 @@ export class AddTaskComponent extends Modal {
   hasError = signal<boolean>(false);
   taskColor = signal<TaskColor>('red');
 
-  addTask(): void {
+  async addTask() {
     if (this.textControl.value) {
       const task = createTask({ text: this.text(), color: this.taskColor() });
-      this.store.dispatch(new AddTask(task, this.board()));
+      await this.tasksService.add(task, this.board());
       this.modal.close();
     }
     else {

@@ -1,9 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Store } from '@ngxs/store';
 import { computedAsync } from 'ngxtension/computed-async';
 import { distinctUntilChanged, tap } from 'rxjs';
-import { AddBoard } from '../../../store/boards/boards.actions';
+import { BoardsService } from '../../../services/boards.service';
 import { createBoard } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
 import { BaseModalComponent } from '../base-modal.component';
@@ -29,7 +28,7 @@ import { BaseModalComponent } from '../base-modal.component';
   `,
 })
 export class AddBoardComponent extends Modal {
-  private store = inject(Store);
+  private boardsService = inject(BoardsService);
 
   titleControl = new FormControl('');
 
@@ -42,10 +41,10 @@ export class AddBoardComponent extends Modal {
 
   hasError = signal<boolean>(false);
 
-  addBoard(): void {
+  async addBoard() {
     if (this.titleControl.value) {
       const board = createBoard(this.title());
-      this.store.dispatch(new AddBoard(board));
+      await this.boardsService.add(board);
       this.modal.close();
     }
     else {

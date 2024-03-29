@@ -1,12 +1,14 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './layout/navbar.component';
+import { Router, RouterOutlet } from '@angular/router';
 import { ModalComponent } from './layout/modal.component';
+import { NavbarComponent } from './layout/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    AsyncPipe,
     RouterOutlet,
     NavbarComponent,
     ModalComponent,
@@ -20,5 +22,5 @@ import { ModalComponent } from './layout/modal.component';
   `,
 })
 export class AppComponent {
-
+  
 }

@@ -3,7 +3,7 @@ import { computedAsync } from 'ngxtension/computed-async';
 import { BoardListComponent } from '../../layout/components/board-list.component';
 import { AddBoardComponent } from '../../layout/modals/boards/add-board.component';
 import { DeleteBoardComponent } from '../../layout/modals/boards/delete-board.component';
-import { AuthService } from '../../services/auth.service';
+import { BoardsService } from '../../services/boards.service';
 import { ModalService } from '../../services/modal.service';
 import { Board } from '../../types/board.interface';
 
@@ -16,10 +16,10 @@ import { Board } from '../../types/board.interface';
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
-  private auth = inject(AuthService);
+  private boardsService = inject(BoardsService);
   private modal = inject(ModalService);
 
-  user = computedAsync(() => this.auth.user$);
+  boards = computedAsync(() => this.boardsService.boards$);
 
   openAddBoard() {
     this.modal.open(AddBoardComponent);

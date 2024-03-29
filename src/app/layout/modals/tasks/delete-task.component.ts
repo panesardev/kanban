@@ -1,9 +1,8 @@
 import { Component, inject, input } from '@angular/core';
+import { TasksService } from '../../../services/tasks.service';
+import { Board, Task } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
 import { BaseModalComponent } from '../base-modal.component';
-import { Board, Task } from '../../../types/board.interface';
-import { Store } from '@ngxs/store';
-import { DeleteTask } from '../../../store/boards/boards.actions';
 
 @Component({
   selector: 'app-delete-task',
@@ -22,13 +21,13 @@ import { DeleteTask } from '../../../store/boards/boards.actions';
   `,
 })
 export class DeleteTaskComponent extends Modal {
-  private store = inject(Store);
+  private tasksService = inject(TasksService);
 
   task = input.required<Task>();
   board = input.required<Board>();
 
   deleteTask() {
-    this.store.dispatch(new DeleteTask(this.task(), this.board()));
+    this.tasksService.delete(this.task(), this.board());
     this.modal.close();
   }
 

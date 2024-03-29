@@ -1,13 +1,11 @@
 import { Component, effect, inject, input, signal } from '@angular/core';
-import { BaseModalComponent } from '../base-modal.component';
-import { Modal } from '../../../types/modal.class';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Store } from '@ngxs/store';
 import { computedAsync } from 'ngxtension/computed-async';
 import { distinctUntilChanged, tap } from 'rxjs';
+import { TasksService } from '../../../services/tasks.service';
 import { Board, Task, TaskColor } from '../../../types/board.interface';
-import { UpdateTask } from '../../../store/boards/boards.actions';
-import { DeleteTaskComponent } from './delete-task.component';
+import { Modal } from '../../../types/modal.class';
+import { BaseModalComponent } from '../base-modal.component';
 
 @Component({
   selector: 'app-update-task',
@@ -40,7 +38,7 @@ import { DeleteTaskComponent } from './delete-task.component';
   `,
 })
 export class UpdateTaskComponent extends Modal {
-  private store = inject(Store);
+  private tasksService = inject(TasksService);
 
   board = input.required<Board>();
   task = input.required<Task>();
@@ -60,10 +58,10 @@ export class UpdateTaskComponent extends Modal {
   setTaskColorRef = effect(() => this.taskColor.set(this.task().color), { allowSignalWrites: true });
   setTextRef = effect(() => this.textControl.setValue(this.task().text));
 
-  updateTask(): void {
+  async updateTask() {
     if (this.textControl.value) {
       const task: Task = { ...this.task(), text: this.text(), color: this.taskColor() };
-      this.store.dispatch(new UpdateTask(task, this.board()));
+      await this.tasksService.update(task, this.board());
       this.modal.close();
     }
     else {

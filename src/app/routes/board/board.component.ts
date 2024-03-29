@@ -1,17 +1,14 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, inject, input } from '@angular/core';
-import { Store } from '@ngxs/store';
 import { computedAsync } from 'ngxtension/computed-async';
-import { map } from 'rxjs';
 import { TaskComponent } from '../../layout/components/task.component';
 import { DeleteBoardComponent } from '../../layout/modals/boards/delete-board.component';
 import { UpdateBoardComponent } from '../../layout/modals/boards/update-board.component';
 import { AddTaskComponent } from '../../layout/modals/tasks/add-task.component';
 import { DeleteTaskComponent } from '../../layout/modals/tasks/delete-task.component';
 import { UpdateTaskComponent } from '../../layout/modals/tasks/update-task.component';
-import { AuthService } from '../../services/auth.service';
+import { BoardsService } from '../../services/boards.service';
 import { ModalService } from '../../services/modal.service';
-import { UpdateBoard } from '../../store/boards/boards.actions';
 import { Task } from '../../types/board.interface';
 
 @Component({
@@ -25,20 +22,14 @@ import { Task } from '../../types/board.interface';
   templateUrl: './board.component.html',
 })
 export class BoardComponent {
-  private store = inject(Store);
-  private auth = inject(AuthService);
+  private boardsService = inject(BoardsService);
   private modal = inject(ModalService);
 
   id = input.required<string>();
 
-  board = computedAsync(() => 
-    this.auth.user$.pipe(
-      map(user => user.boards),
-      map(boards => boards.find(b => b.id === this.id())),
-    ),
-  );
+  board = computedAsync(() => this.boardsService.find(this.id()));
 
-  drop(e: CdkDragDrop<Task[]>) {
+  async drop(e: CdkDragDrop<Task[]>) {
     if (e.previousContainer === e.container) {
       moveItemInArray(e.container.data, e.previousIndex, e.currentIndex);
     }
@@ -85,7 +76,7 @@ export class BoardComponent {
       this.board().ongoing = e.container.data;
     }
 
-    this.store.dispatch(new UpdateBoard(this.board()));
+    await this.boardsService.update(this.board());
   }
 
   openAddTask() {

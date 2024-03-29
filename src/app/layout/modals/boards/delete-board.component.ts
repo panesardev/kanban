@@ -1,6 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { DeleteBoard } from '../../../store/boards/boards.actions';
+import { BoardsService } from '../../../services/boards.service';
 import { Board } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
 import { BaseModalComponent } from '../base-modal.component';
@@ -22,12 +21,12 @@ import { BaseModalComponent } from '../base-modal.component';
   `,
 })
 export class DeleteBoardComponent extends Modal {
-  private store = inject(Store);
+  private boardsService = inject(BoardsService);
 
   board = input.required<Board>();
   
-  deleteBoard() {
-    this.store.dispatch(new DeleteBoard(this.board()));
+  async deleteBoard() {
+    await this.boardsService.delete(this.board());
     this.modal.close();
   }
 

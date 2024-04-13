@@ -11,7 +11,7 @@ import { BaseModalComponent } from '../base-modal.component';
     BaseModalComponent,
   ],
   template: `
-    <app-base-modal heading="Delete task" classes="max-w-md">
+    <app-base-modal heading="Delete task" width="max-w-md">
       <p class="mb-6">Are you sure to delete <span class="font-medium">{{ task().text }}</span>?</p>
 
       <div class="grid">

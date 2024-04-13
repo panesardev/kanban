@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ModalService } from '../services/modal.service';
-import { AddBoardComponent } from './modals/boards/add-board.component';
-import { LogoutComponent } from './modals/logout.component';
-import { AuthService } from '../services/auth.service';
 import { computedAsync } from 'ngxtension/computed-async';
+import { AuthService } from '../services/auth.service';
+import { ModalService } from '../services/modal.service';
+import { LogoutComponent } from './modals/logout.component';
 
 @Component({
   selector: 'app-navbar',
@@ -21,9 +20,6 @@ import { computedAsync } from 'ngxtension/computed-async';
         </div>
         @if (user()) {
           <div class="flex gap-8">
-            <a class="cursor-pointer" (click)="openAddBoard()">
-              <svg fill="currentColor" id="Layer_1" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m12 0a12 12 0 1 0 12 12 12.013 12.013 0 0 0 -12-12zm0 22a10 10 0 1 1 10-10 10.011 10.011 0 0 1 -10 10zm5-10a1 1 0 0 1 -1 1h-3v3a1 1 0 0 1 -2 0v-3h-3a1 1 0 0 1 0-2h3v-3a1 1 0 0 1 2 0v3h3a1 1 0 0 1 1 1z"/></svg>
-            </a>
             <a routerLink="/dashboard">
               <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M7,0H4A4,4,0,0,0,0,4V7a4,4,0,0,0,4,4H7a4,4,0,0,0,4-4V4A4,4,0,0,0,7,0ZM9,7A2,2,0,0,1,7,9H4A2,2,0,0,1,2,7V4A2,2,0,0,1,4,2H7A2,2,0,0,1,9,4Z"/><path d="M20,0H17a4,4,0,0,0-4,4V7a4,4,0,0,0,4,4h3a4,4,0,0,0,4-4V4A4,4,0,0,0,20,0Zm2,7a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2V4a2,2,0,0,1,2-2h3a2,2,0,0,1,2,2Z"/><path d="M7,13H4a4,4,0,0,0-4,4v3a4,4,0,0,0,4,4H7a4,4,0,0,0,4-4V17A4,4,0,0,0,7,13Zm2,7a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V17a2,2,0,0,1,2-2H7a2,2,0,0,1,2,2Z"/><path d="M20,13H17a4,4,0,0,0-4,4v3a4,4,0,0,0,4,4h3a4,4,0,0,0,4-4V17A4,4,0,0,0,20,13Zm2,7a2,2,0,0,1-2,2H17a2,2,0,0,1-2-2V17a2,2,0,0,1,2-2h3a2,2,0,0,1,2,2Z"/></svg>
             </a>
@@ -45,9 +41,4 @@ export class NavbarComponent {
   openLogout() {
     this.modal.open(LogoutComponent);
   }
-
-  openAddBoard() {
-    this.modal.open(AddBoardComponent);
-  }
-
 }

@@ -11,6 +11,9 @@
   .btn.red {
     @apply bg-red-500 text-red-50; 
   }
+  .btn.disabled {
+    @apply bg-slate-200 text-slate-400;
+  }
   
   .custom-shadow {
     box-shadow: 0 0 10px #4d63760b;

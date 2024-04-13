@@ -4,7 +4,7 @@
   </div>
 
   <div class="flex justify-center items-center mb-28">
-    @if (user$ | async; as user) {
+    @if (user(); as user) {
       <button class="btn primary px-8" routerLink="/dashboard">Continue to Dashboard</button>
     }
     @else {

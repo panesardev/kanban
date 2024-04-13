@@ -1,8 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, ViewContainerRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ModalComponent } from './layout/modal.component';
 import { NavbarComponent } from './layout/navbar.component';
+import { ModalService } from './services/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -11,16 +11,19 @@ import { NavbarComponent } from './layout/navbar.component';
     AsyncPipe,
     RouterOutlet,
     NavbarComponent,
-    ModalComponent,
   ],
   template: `
     <app-navbar />
     <main class="max-w-6xl mt-20 mx-auto px-4 py-6 md:p-8">
       <router-outlet />
     </main>
-    <app-modal/>
   `,
 })
 export class AppComponent {
-  
+  private container = inject(ViewContainerRef);
+  private modal = inject(ModalService);
+
+  constructor() {
+    this.modal.setContainer(this.container);
+  }
 }

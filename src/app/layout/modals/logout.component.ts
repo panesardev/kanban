@@ -10,7 +10,7 @@ import { BaseModalComponent } from './base-modal.component';
     BaseModalComponent,
   ],
   template: `
-    <app-base-modal heading="Logout" classes="max-w-md">
+    <app-base-modal heading="Logout" width="max-w-md">
       <p class="mb-6">You will be logged out!</p>
 
       <button class="btn bg-red-500 text-red-50 w-full" (click)="logout()">Logout</button>

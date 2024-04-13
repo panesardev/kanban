@@ -1,7 +1,5 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { computedAsync } from 'ngxtension/computed-async';
-import { distinctUntilChanged, tap } from 'rxjs';
+import { Component, effect, inject, input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TasksService } from '../../../services/tasks.service';
 import { Board, Task, TaskColor } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
@@ -15,25 +13,26 @@ import { BaseModalComponent } from '../base-modal.component';
     ReactiveFormsModule,
   ],
   template: `
-    <app-base-modal heading="Update task" classes="max-w-md">
-      <div class="grid gap-2 mb-4">
-        <label>change text</label>
-        <input type="text" [formControl]="textControl" placeholder="type here" 
-          class="border-2 rounded px-4 py-3 {{ hasError() ? ' border-red-400' : 'border-slate-200' }}">
-      </div>
-      <div class="grid gap-2 mb-8">
-        <label>select color</label>
-        <div class="border-2 border-slate-200 flex w-fit gap-2 p-2 rounded-full">
-          <div class="{{ isSelectedTaskColor('red') ? 'border-[6px] border-red-500 bg-neutral' : 'bg-red-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('red')"></div>
-          <div class="{{ isSelectedTaskColor('blue') ? 'border-[6px] border-blue-500 bg-neutral' : 'bg-blue-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('blue')"></div>
-          <div class="{{ isSelectedTaskColor('purple') ? 'border-[6px] border-purple-500 bg-neutral' : 'bg-purple-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('purple')"></div>
-          <div class="{{ isSelectedTaskColor('emerald') ? 'border-[6px] border-emerald-500 bg-neutral' : 'bg-emerald-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('emerald')"></div>
-          <div class="{{ isSelectedTaskColor('amber') ? 'border-[6px] border-amber-500 bg-neutral' : 'bg-amber-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('amber')"></div>
+    <app-base-modal heading="Update task" width="max-w-md">
+      <form [formGroup]="taskForm" (submit)="updateTask()">
+        <div class="grid gap-2 mb-4">
+          <label class="{{ taskForm.invalid ? 'text-red-500' : '' }}">enter task</label>
+          <input type="text" formControlName="text" placeholder="type here" class="border-2 rounded px-4 py-3">
         </div>
-      </div>
-      <div class="grid">
-        <button class="btn primary px-6" (click)="updateTask()">Update task</button>
-      </div>
+        <div class="grid gap-2 mb-8">
+          <label>select color</label>
+          <div class="border-2 border-slate-200 flex w-fit gap-2 p-2 rounded-full">
+            <div class="{{ isSelectedTaskColor('red') ? 'border-[6px] border-red-500 bg-neutral' : 'bg-red-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('red')"></div>
+            <div class="{{ isSelectedTaskColor('blue') ? 'border-[6px] border-blue-500 bg-neutral' : 'bg-blue-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('blue')"></div>
+            <div class="{{ isSelectedTaskColor('purple') ? 'border-[6px] border-purple-500 bg-neutral' : 'bg-purple-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('purple')"></div>
+            <div class="{{ isSelectedTaskColor('emerald') ? 'border-[6px] border-emerald-500 bg-neutral' : 'bg-emerald-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('emerald')"></div>
+            <div class="{{ isSelectedTaskColor('amber') ? 'border-[6px] border-amber-500 bg-neutral' : 'bg-amber-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('amber')"></div>
+          </div>
+        </div>
+        <div class="grid">
+          <button class="btn {{ taskForm.invalid ? 'disabled' : 'primary' }} px-6" type="submit" [disabled]="taskForm.invalid">Update task</button>
+        </div>
+      </form>
     </app-base-modal>
   `,
 })
@@ -43,38 +42,36 @@ export class UpdateTaskComponent extends Modal {
   board = input.required<Board>();
   task = input.required<Task>();
 
-  textControl = new FormControl('');
+  taskForm = new FormGroup({
+    text: new FormControl<string>('', Validators.required),
+    color: new FormControl<TaskColor>('red', Validators.required),
+  });
 
-  text = computedAsync(() => 
-    this.textControl.valueChanges.pipe(
-      distinctUntilChanged(),
-      tap(title => this.hasError.set(title ? false : true)),
-    ),
+  setTaskForm = effect(() =>
+    this.taskForm.setValue({ 
+      text: this.task().text,
+      color: this.task().color,
+    })
   );
-
-  hasError = signal<boolean>(false);
-  taskColor = signal<TaskColor>('red');
-
-  setTaskColorRef = effect(() => this.taskColor.set(this.task().color), { allowSignalWrites: true });
-  setTextRef = effect(() => this.textControl.setValue(this.task().text));
-
+  
   async updateTask() {
-    if (this.textControl.value) {
-      const task: Task = { ...this.task(), text: this.text(), color: this.taskColor() };
+    if (this.taskForm.valid) {
+      const task: Task = { 
+        ...this.task(), 
+        text: this.taskForm.value.text,
+        color: this.taskForm.value.color,
+      };
       await this.tasksService.update(task, this.board());
       this.modal.close();
-    }
-    else {
-      this.hasError.set(true);
     }
   }
 
   setTaskColor(color: TaskColor): void {
-    this.taskColor.set(color);
+    this.taskForm.value.color = color;
   }
 
   isSelectedTaskColor(color: TaskColor): boolean {
-    return this.taskColor() === color;
+    return this.taskForm.value.color === color;
   }
 
 }

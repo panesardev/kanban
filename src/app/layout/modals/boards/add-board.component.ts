@@ -1,7 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { computedAsync } from 'ngxtension/computed-async';
-import { distinctUntilChanged, tap } from 'rxjs';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BoardsService } from '../../../services/boards.service';
 import { createBoard } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
@@ -15,41 +13,31 @@ import { BaseModalComponent } from '../base-modal.component';
     ReactiveFormsModule,
   ],
   template: `
-    <app-base-modal heading="Add board" classes="max-w-md">
-      <div class="grid gap-2 mb-6">
-        <label>enter board title</label>
-        <input type="text" [formControl]="titleControl" placeholder="type here" 
-          class="border-2 rounded px-4 py-3 {{ hasError() ? ' border-red-400' : 'border-slate-200' }}">
-      </div>
-      <div class="grid">
-        <button class="btn primary px-6" (click)="addBoard()">Add board</button>
-      </div>
+    <app-base-modal heading="Add board" width="max-w-md">
+      <form [formGroup]="boardForm" (submit)="addBoard()">
+        <div class="grid gap-2 mb-6">
+          <label class="{{ boardForm.invalid ? 'text-red-500' : '' }}">enter board title</label>
+          <input type="text" formControlName="title" placeholder="type here" class="border-2 rounded px-4 py-3">
+        </div>
+        <div class="grid">
+          <button class="btn {{ boardForm.invalid ? 'disabled' : 'primary' }} px-6" type="submit" [disabled]="boardForm.invalid">Add board</button>
+        </div>
+      </form>
     </app-base-modal>
   `,
 })
 export class AddBoardComponent extends Modal {
   private boardsService = inject(BoardsService);
 
-  titleControl = new FormControl('');
-
-  title = computedAsync(() => 
-    this.titleControl.valueChanges.pipe(
-      distinctUntilChanged(),
-      tap(title => this.hasError.set(title ? false : true)),
-    ),
-  );
-
-  hasError = signal<boolean>(false);
+  boardForm = new FormGroup({
+    title: new FormControl('', Validators.required),
+  });
 
   async addBoard() {
-    if (this.titleControl.value) {
-      const board = createBoard(this.title());
+    if (this.boardForm.valid) {
+      const board = createBoard(this.boardForm.value.title);
       await this.boardsService.add(board);
       this.modal.close();
     }
-    else {
-      this.hasError.set(true);
-    }
   }
-
 }

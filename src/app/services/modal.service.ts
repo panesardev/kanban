@@ -8,26 +8,27 @@ export interface ModalInput {
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
-  private containerRef: ViewContainerRef;
-  readonly isClosed = signal(true);
+  private container: ViewContainerRef;
 
-  setContainerRef(containerRef: ViewContainerRef): void {
-    this.containerRef = containerRef;
+  readonly isOpen = signal(false);
+
+  setContainer(container: ViewContainerRef): void {
+    this.container = container;
   }
 
   open(modal: typeof Modal, inputs?: ModalInput[]): void {
-    this.containerRef.clear();
-    const component = this.containerRef.createComponent(modal);
+    this.container.clear();
+    const component = this.container.createComponent(modal);
     if (inputs) {
       inputs.forEach(input => component.setInput(input.name, input.value));
     }
-    this.isClosed.set(false);
+    this.isOpen.set(true);
   }
 
   close(): void {
     setTimeout(() => {
-      this.containerRef.remove();
+      this.container.remove();
     }, 300);
-    this.isClosed.set(true);
+    this.isOpen.set(false);
   }  
 }

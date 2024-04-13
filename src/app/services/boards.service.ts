@@ -42,5 +42,6 @@ export class BoardsService {
     let boards = await firstValueFrom(this.boards$);
     boards = boards.filter(b => b.id !== board.id);
     await this.setBoards(boards);
+    await this.router.navigateByUrl(`/dashboard`);
   }
 }

@@ -1,7 +1,5 @@
-import { Component, inject, input, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { computedAsync } from 'ngxtension/computed-async';
-import { distinctUntilChanged, tap } from 'rxjs';
+import { Component, inject, input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TasksService } from '../../../services/tasks.service';
 import { Board, TaskColor, createTask } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
@@ -15,25 +13,26 @@ import { BaseModalComponent } from '../base-modal.component';
     ReactiveFormsModule,
   ],
   template: `
-    <app-base-modal heading="Add task" classes="max-w-md">
-      <div class="grid gap-2 mb-4">
-        <label>enter task</label>
-        <input type="text" [formControl]="textControl" placeholder="type here" 
-          class="border-2 rounded px-4 py-3 {{ hasError() ? ' border-red-400' : 'border-slate-200' }}">
-      </div>
-      <div class="grid gap-2 mb-8">
-        <label>select color</label>
-        <div class="border-2 border-slate-200 flex w-fit gap-2 p-2 rounded-full">
-          <div class="{{ isSelectedTaskColor('red') ? 'border-[6px] border-red-500 bg-neutral' : 'bg-red-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('red')"></div>
-          <div class="{{ isSelectedTaskColor('blue') ? 'border-[6px] border-blue-500 bg-neutral' : 'bg-blue-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('blue')"></div>
-          <div class="{{ isSelectedTaskColor('purple') ? 'border-[6px] border-purple-500 bg-neutral' : 'bg-purple-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('purple')"></div>
-          <div class="{{ isSelectedTaskColor('emerald') ? 'border-[6px] border-emerald-500 bg-neutral' : 'bg-emerald-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('emerald')"></div>
-          <div class="{{ isSelectedTaskColor('amber') ? 'border-[6px] border-amber-500 bg-neutral' : 'bg-amber-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('amber')"></div>
+    <app-base-modal heading="Add task" width="max-w-md">
+      <form [formGroup]="taskForm" (submit)="addTask()">
+        <div class="grid gap-2 mb-4">
+          <label class="{{ taskForm.invalid ? 'text-red-500' : '' }}">enter task</label>
+          <input type="text" formControlName="text" placeholder="type here" class="border-2 rounded px-4 py-3">
         </div>
-      </div>
-      <div class="grid">
-        <button class="btn primary px-6" (click)="addTask()">Add task</button>
-      </div>
+        <div class="grid gap-2 mb-8">
+          <label>select color</label>
+          <div class="border-2 border-slate-200 flex w-fit gap-2 p-2 rounded-full">
+            <div class="{{ isSelectedTaskColor('red') ? 'border-[6px] border-red-500 bg-neutral' : 'bg-red-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('red')"></div>
+            <div class="{{ isSelectedTaskColor('blue') ? 'border-[6px] border-blue-500 bg-neutral' : 'bg-blue-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('blue')"></div>
+            <div class="{{ isSelectedTaskColor('purple') ? 'border-[6px] border-purple-500 bg-neutral' : 'bg-purple-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('purple')"></div>
+            <div class="{{ isSelectedTaskColor('emerald') ? 'border-[6px] border-emerald-500 bg-neutral' : 'bg-emerald-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('emerald')"></div>
+            <div class="{{ isSelectedTaskColor('amber') ? 'border-[6px] border-amber-500 bg-neutral' : 'bg-amber-500' }} w-8 h-8 rounded-full cursor-pointer" (click)="setTaskColor('amber')"></div>
+          </div>
+        </div>
+        <div class="grid">
+          <button class="btn {{ taskForm.invalid ? 'disabled' : 'primary' }} px-6" type="submit" [disabled]="taskForm.invalid">Add task</button>
+        </div>
+      </form>
     </app-base-modal>
   `,
 })
@@ -42,35 +41,28 @@ export class AddTaskComponent extends Modal {
 
   board = input.required<Board>();
 
-  textControl = new FormControl('');
-
-  text = computedAsync(() => 
-    this.textControl.valueChanges.pipe(
-      distinctUntilChanged(),
-      tap(title => this.hasError.set(title ? false : true)),
-    ),
-  );
-
-  hasError = signal<boolean>(false);
-  taskColor = signal<TaskColor>('red');
+  taskForm = new FormGroup({
+    text: new FormControl<string>('', Validators.required),
+    color: new FormControl<TaskColor>('red', Validators.required),
+  });
 
   async addTask() {
-    if (this.textControl.value) {
-      const task = createTask({ text: this.text(), color: this.taskColor() });
+    if (this.taskForm.valid) {
+      const task = createTask({
+        text: this.taskForm.value.text,
+        color: this.taskForm.value.color,
+      });
       await this.tasksService.add(task, this.board());
       this.modal.close();
-    }
-    else {
-      this.hasError.set(true);
     }
   }
 
   setTaskColor(color: TaskColor): void {
-    this.taskColor.set(color);
+    this.taskForm.value.color = color;
   }
 
   isSelectedTaskColor(color: TaskColor): boolean {
-    return this.taskColor() === color;
+    return this.taskForm.value.color === color;
   }
 
 }

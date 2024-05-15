@@ -1,4 +1,5 @@
-import { v4 as uuid } from 'uuid';
+import { createId } from "@paralleldrive/cuid2";
+import { Task } from './task.interface';
 
 export interface Board {
   id: string;
@@ -9,29 +10,13 @@ export interface Board {
   completed: Task[];
 }
 
-export interface Task {
-  id: string;
-  color: TaskColor;
-  text: string;
-}
-
-export type TaskColor = 'red' | 'blue' | 'purple' | 'emerald' | 'amber';
-
 export function createBoard(title: string): Board {
   return {
-    id: uuid(),
+    id: createId(),
     title,
     createdAt: new Date().toDateString().slice(3),
     ongoing: [],
     planned: [],
     completed: [],
   };
-}
-
-export function createTask(task: Partial<Task>): Task {
-  return {
-    id: uuid(),
-    text: task.text,
-    color: task.color,
-  }
 }

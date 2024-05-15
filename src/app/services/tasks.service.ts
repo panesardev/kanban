@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { Board, Task } from '../types/board.interface';
+import { Board } from '../types/board.interface';
 import { BoardsService } from './boards.service';
+import { Task } from '../types/task.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {

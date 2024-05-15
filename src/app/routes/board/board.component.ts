@@ -9,7 +9,7 @@ import { DeleteTaskComponent } from '../../layout/modals/tasks/delete-task.compo
 import { UpdateTaskComponent } from '../../layout/modals/tasks/update-task.component';
 import { BoardsService } from '../../services/boards.service';
 import { ModalService } from '../../services/modal.service';
-import { Task } from '../../types/board.interface';
+import { Task } from '../../types/task.interface';
 
 @Component({
   selector: 'app-board',

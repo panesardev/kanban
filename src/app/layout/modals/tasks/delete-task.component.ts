@@ -1,8 +1,9 @@
 import { Component, inject, input } from '@angular/core';
 import { TasksService } from '../../../services/tasks.service';
-import { Board, Task } from '../../../types/board.interface';
+import { Board } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
 import { BaseModalComponent } from '../base-modal.component';
+import { Task } from '../../../types/task.interface';
 
 @Component({
   selector: 'app-delete-task',

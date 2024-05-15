@@ -1,9 +1,10 @@
 import { Component, inject, input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TasksService } from '../../../services/tasks.service';
-import { Board, TaskColor, createTask } from '../../../types/board.interface';
+import { Board } from '../../../types/board.interface';
 import { Modal } from '../../../types/modal.class';
 import { BaseModalComponent } from '../base-modal.component';
+import { createTask, TaskColor } from '../../../types/task.interface';
 
 @Component({
   selector: 'app-add-task',

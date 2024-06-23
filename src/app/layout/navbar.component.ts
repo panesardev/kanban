@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { computedAsync } from 'ngxtension/computed-async';
+import { derivedAsync } from 'ngxtension/derived-async';
 import { AuthService } from '../services/auth.service';
 import { ModalService } from '../services/modal.service';
 import { LogoutComponent } from './modals/logout.component';
@@ -36,7 +36,7 @@ export class NavbarComponent {
   private modal = inject(ModalService);
   private auth = inject(AuthService);
 
-  user = computedAsync(() => this.auth.user$);
+  user = derivedAsync(() => this.auth.user$);
 
   openLogout() {
     this.modal.open(LogoutComponent);

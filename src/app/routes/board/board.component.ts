@@ -1,6 +1,6 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, inject, input } from '@angular/core';
-import { computedAsync } from 'ngxtension/computed-async';
+import { derivedAsync } from 'ngxtension/derived-async';
 import { TaskComponent } from '../../layout/components/task.component';
 import { DeleteBoardComponent } from '../../layout/modals/boards/delete-board.component';
 import { UpdateBoardComponent } from '../../layout/modals/boards/update-board.component';
@@ -27,7 +27,7 @@ export class BoardComponent {
 
   id = input.required<string>();
 
-  board = computedAsync(() => this.boardsService.find(this.id()));
+  board = derivedAsync(() => this.boardsService.find(this.id()));
 
   async drop(e: CdkDragDrop<Task[]>) {
     if (e.previousContainer === e.container) {

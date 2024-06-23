@@ -2,7 +2,7 @@ import { Component, effect, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { AsyncPipe } from '@angular/common';
-import { computedAsync } from 'ngxtension/computed-async';
+import { derivedAsync } from 'ngxtension/derived-async';
 
 @Component({
   selector: 'app-index',
@@ -17,7 +17,7 @@ export class IndexComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
 
-  user = computedAsync(() => this.auth.user$);
+  user = derivedAsync(() => this.auth.user$);
 
   redirect = effect(() => 
     this.user() && this.router.navigateByUrl('/dashboard')

@@ -25,13 +25,13 @@
             "outputPath": "dist/kanban",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
             "tsConfig": "tsconfig.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "src/public"
+              }
             ],
             "styles": [
               "src/styles/index.scss"

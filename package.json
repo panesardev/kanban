@@ -15,7 +15,6 @@
     "@angular/common": "^18.0.4",
     "@angular/compiler": "^18.0.4",
     "@angular/core": "^18.0.4",
-    "@angular/fire": "^18.0.1",
     "@angular/forms": "^18.0.4",
     "@angular/platform-browser": "^18.0.4",
     "@angular/platform-browser-dynamic": "^18.0.4",
@@ -23,6 +22,7 @@
     "@paralleldrive/cuid2": "^2.2.2",
     "firebase": "^10.8.1",
     "ngxtension": "^3.5.5",
+    "rxfire": "^6.0.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

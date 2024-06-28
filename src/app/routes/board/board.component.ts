@@ -21,7 +21,7 @@ import { Task } from '../../types/task.interface';
   ],
   templateUrl: './board.component.html',
 })
-export class BoardComponent {
+export default class BoardComponent {
   private boardsService = inject(BoardsService);
   private modal = inject(ModalService);
 

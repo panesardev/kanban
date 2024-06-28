@@ -15,7 +15,7 @@ import { Board } from '../../types/board.interface';
   ],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent {
+export default class DashboardComponent {
   private boardsService = inject(BoardsService);
   private modal = inject(ModalService);
 

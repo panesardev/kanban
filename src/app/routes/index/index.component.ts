@@ -13,7 +13,7 @@ import { derivedAsync } from 'ngxtension/derived-async';
   ],
   templateUrl: './index.component.html',
 })
-export class IndexComponent {
+export default class IndexComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
 
